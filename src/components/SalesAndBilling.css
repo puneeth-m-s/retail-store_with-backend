@@ -1,0 +1,181 @@
+/* Container for Sales and Billing */
+.sales-container {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  font-family: 'Arial', sans-serif;
+  color: #333;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Header styles */
+.sales-container h2 {
+  text-align: center;
+  font-size: 28px;
+  margin-bottom: 30px;
+  color: #444;
+}
+
+/* Product List */
+.products-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: space-evenly;
+}
+
+/* Product Card */
+.product {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  width: 220px;
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.product:hover {
+  transform: translateY(-5px);
+}
+
+/* Product name and price */
+.product h4 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.product p {
+  font-size: 18px;
+  color: #777;
+  margin-bottom: 15px;
+}
+
+/* Buttons for Add to Cart and Edit */
+button {
+  padding: 10px 15px;
+  font-size: 16px;
+  font-weight: bold;
+  color: white;
+  background-color: #3498db;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 10px;
+}
+
+button:hover {
+  background-color: #2980b9;
+}
+
+button + button {
+  margin-left: 10px;
+  background-color: #e67e22;
+}
+
+button + button:hover {
+  background-color: #d35400;
+}
+
+/* Cart Styles */
+.cart {
+  margin-top: 40px;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.cart h3 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.cart ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.cart ul li {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.cart ul li:last-child {
+  border-bottom: none;
+}
+
+.cart h4 {
+  font-size: 22px;
+  margin-top: 20px;
+}
+
+.cart button {
+  background-color: #2ecc71;
+  margin-top: 20px;
+}
+
+.cart button:hover {
+  background-color: #27ae60;
+}
+
+/* Edit Form Styles */
+.edit-form {
+  margin-top: 30px;
+  padding: 20px;
+  background-color: #f1f1f1;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.edit-form h3 {
+  font-size: 22px;
+  margin-bottom: 15px;
+  color: #444;
+}
+
+.edit-form input {
+  padding: 10px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  width: 180px;
+  font-size: 16px;
+}
+
+.edit-form button {
+  background-color: #27ae60;
+  margin-right: 10px;
+}
+
+.edit-form button:hover {
+  background-color: #229954;
+}
+
+.edit-form button:last-child {
+  background-color: #e74c3c;
+}
+
+.edit-form button:last-child:hover {
+  background-color: #c0392b;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .products-list {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .product {
+    width: 90%;
+  }
+
+  .cart {
+    margin-top: 20px;
+  }
+}
