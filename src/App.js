@@ -3,6 +3,8 @@ import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import ProductManagement from './components/ProductManagement';
 import SalesAndBilling from './components/SalesAndBilling';
 import InventoryManagement from './components/InventoryManagement';
+import OrderList from './components/OrderList';
+import CustomerForm from './components/CustomerForm';
 import './App.css';
 
 function App() {
@@ -21,7 +23,10 @@ function App() {
               <Link to="/sales">Sales and Billing</Link>
             </li>
             <li>
-              <Link to="/inventory">Inventory Management</Link>
+              <Link to="/CustomerForm">Customer Details</Link>
+            </li>
+            <li>
+              <Link to="/OrderList">Order List</Link>
             </li>
           </ul>
         </nav>
@@ -36,6 +41,12 @@ function App() {
 
           {/* Route for the Inventory Management page */}
           <Route path="/inventory" element={<InventoryManagement />} />
+
+          {/* Route for the Order List page */}
+          <Route path="/OrderList" element={<OrderList />} />
+
+          {/* Route for the Customer Details page */}
+          <Route path="/CustomerForm" element={<CustomerForm />} />
         </Routes>
       </div>
     </Router>

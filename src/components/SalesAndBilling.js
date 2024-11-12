@@ -28,6 +28,13 @@ function SalesAndBilling() {
     setTotal(total + product.price);
   };
 
+  const removeFromCart = (index, product) => {
+    const newCart = [...cart];
+    newCart.splice(index, 1); // Remove the item from the cart
+    setCart(newCart);
+    setTotal(total - product.price); // Subtract the product price from the total
+  };
+
   const handleCheckout = async () => {
     cart.forEach(async (item) => {
       const { error } = await supabase.from('sales').insert([
@@ -64,6 +71,18 @@ function SalesAndBilling() {
     }
   };
 
+  // Function to remove product from Supabase database
+  const handleRemoveProductFromDB = async (productId) => {
+    const { error } = await supabase.from('products').delete().eq('id', productId);
+    
+    if (error) {
+      console.error('Error removing product from database:', error);
+    } else {
+      fetchProducts(); // Refresh the product list after deletion
+      setEditProduct(null); // Close the edit form if the product was being edited
+    }
+  };
+
   return (
     <div className="sales-container">
       <h2>Sales and Billing</h2>
@@ -75,6 +94,7 @@ function SalesAndBilling() {
             <p>Price: ₹{product.price}</p>
             <button onClick={() => addToCart(product)}>Add to Cart</button>
             <button onClick={() => handleEditClick(product)}>Edit</button>
+            <button onClick={() => handleRemoveProductFromDB(product.id)}>Delete</button> {/* Button to remove product from DB */}
           </div>
         ))}
       </div>
@@ -108,6 +128,7 @@ function SalesAndBilling() {
           {cart.map((product, index) => (
             <li key={index}>
               {product.name} - ₹{product.price}
+              <button className="remove-btn" onClick={() => removeFromCart(index, product)}>Remove</button>
             </li>
           ))}
         </ul>
