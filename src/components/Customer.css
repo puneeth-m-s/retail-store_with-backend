@@ -1,43 +1,148 @@
-/* Customer.css */
+/* General table styling */
+table {
+  width: 100%; /* Set table to full width */
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+table th, table td {
+  padding: 12px;
+  text-align: left;
+  border: 1px solid #ddd; /* Add visible border to cells */
+}
+
+table th {
+  background-color: #4CAF50;
+  color: white;
+}
 
 /* General table styling */
 table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
+  width: 100%; /* Set table to full width */
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+table th, table td {
+  padding: 12px;
+  text-align: left;
+  border: 0px solid #ddd; /* Add visible border to cells */
+}
+
+table th {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.customer-list-section table tbody tr:nth-child(even) {
+  background-color: #f2f2f2; /* Add alternating row color */
+}
+
+form table {
+  margin: 20px auto;
+  width: 80%; /* Form table width */
+}
+
+form td {
+  padding: 10px;
+  padding-right: 30px;
+  padding-left: 25px;
+}
+
+/* Button styling */
+button {
+  padding: 10px 15px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-bottom: 10px; /* Add spacing below button */
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+/* Center the "Fetch Customers" button */
+.customer-list-section button {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding: 10px 20px;
+  display: block;
+  width: 200px; /* Set a fixed width for the button */
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto; /* Center the button */
+}
+
+/* Responsive styling for smaller screens */
+@media (max-width: 768px) {
+  table {
+    font-size: 14px; /* Smaller font size for small screens */
   }
-  
-  table th, table td {
-    padding: 12px;
-    text-align: left;
-    border: 0px solid #ddd;
-  }
-  
-  table th {
-    background-color: #4CAF50;
-    color: white;
-  }
-  
+
   form table {
-    margin: 20px auto;
-    width: 80%;
+    width: 100%; /* Make form table responsive */
   }
-  
-  form td {
-    padding: 10px;
-  }
-  
+
   button {
-    padding: 10px 15px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
+    width: 100%; /* Make buttons full width on small screens */
   }
-  
-  button:hover {
-    background-color: #45a049;
+}
+
+
+form table {
+  margin: 20px auto;
+  width: 80%; /* Form table width */
+}
+
+form td {
+  padding: 10px;
+  padding-right: 30px;
+  padding-left: 25px;
+}
+
+/* Button styling */
+button {
+  padding: 10px 15px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-bottom: 10px; /* Add spacing below button */
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+/* Center the "Fetch Customers" button */
+.customer-list-section button {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding: 10px 20px;
+  display: block;
+  width: 200px; /* Set a fixed width for the button */
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto; /* Center the button */
+}
+
+/* Responsive styling for smaller screens */
+@media (max-width: 768px) {
+  table {
+    font-size: 14px; /* Smaller font size for small screens */
   }
-  
+
+  form table {
+    width: 100%; /* Make form table responsive */
+  }
+
+  button {
+    width: 100%; /* Make buttons full width on small screens */
+  }
+}

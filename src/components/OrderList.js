@@ -114,13 +114,13 @@ const OrderForm = () => {
               </tr>
             </thead>
             <tbody>
-              {orders.map((Orders) => (
-                <tr key={orders.order_id}>
-                  <td>{orders.order_id}</td>
-                  <td>{orders.supplier}</td>
-                  <td>{orders.product}</td>
-                  <td>{orders.quantity}</td>
-                  <td>{new Date(orders.order_date).toLocaleDateString()}</td>
+              {orders.map((order) => (
+                <tr key={order.order_id}>
+                  <td>{order.order_id}</td>
+                  <td>{order.supplier}</td>
+                  <td>{order.product}</td>
+                  <td>{order.quantity}</td>
+                  <td>{new Date(order.order_date).toLocaleDateString()}</td>
                 </tr>
               ))}
             </tbody>

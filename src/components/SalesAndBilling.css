@@ -53,13 +53,12 @@
   margin-bottom: 15px;
 }
 
-/* Buttons for Add to Cart and Edit */
+/* General Button Styling */
 button {
   padding: 10px 15px;
   font-size: 16px;
   font-weight: bold;
   color: white;
-  background-color: #3498db;
   border: none;
   border-radius: 5px;
   cursor: pointer;
@@ -67,20 +66,36 @@ button {
   margin-top: 10px;
 }
 
-
+/* Add to Cart Button */
+button {
+  background-color: #3498db;
+}
 
 button:hover {
   background-color: #2980b9;
 }
 
+/* Edit Button Styling */
 button + button {
-  background-color: #eb763c;
+  background-color: #25ce22;
 }
 
 button + button:hover {
   background-color: #f70202;
 }
 
+/* Separate styles for Remove button */
+.remove-btn {
+  background-color: #e74c3c; /* Red background */
+  padding: 10px 15px;
+  color: white;
+  border-radius: 5px;
+  margin-top: 5px;
+}
+
+.remove-btn:hover {
+  background-color: #c0392b; /* Darker red on hover */
+}
 
 /* Cart Styles */
 .cart {
@@ -90,7 +105,6 @@ button + button:hover {
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
-
 
 .cart h3 {
   text-align: center;
@@ -135,18 +149,20 @@ button + button:hover {
   margin-top: 20px;
 }
 
-.cart button {
-  background-color: #2ecc71;
+/* Separate styles for Checkout button */
+.checkout-btn {
+  background-color: #2ecc71; /* Green background */
+  color: white;
+  padding: 12px 20px;
+  font-size: 18px;
   margin-top: 20px;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
-
-
-.cart button:hover {
-  background-color: #27ae60;
+.checkout-btn:hover {
+  background-color: #27ae60; /* Darker green on hover */
 }
-
-
 
 /* Edit Form Styles */
 .edit-form {
@@ -182,7 +198,6 @@ button + button:hover {
   background-color: #229954;
 }
 
-
 .edit-form button:last-child {
   background-color: #e74c3c;
 }
@@ -205,5 +220,14 @@ button + button:hover {
   .cart {
     margin-top: 20px;
   }
-  
 }
+.low-stock {
+  background-color: rgba(255, 0, 0, 0.1); /* Light red background */
+  border: 1px solid red; /* Red border */
+}
+
+.low-stock h4,
+.low-stock p {
+  color: red; /* Red text */
+}
+

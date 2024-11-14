@@ -6,7 +6,8 @@ function SalesAndBilling() {
   const [products, setProducts] = useState([]);
   const [cart, setCart] = useState([]);
   const [total, setTotal] = useState(0);
-  const [editProduct, setEditProduct] = useState(null); // State to store the product being edited
+  const [lowStockWarning, setLowStockWarning] = useState('');
+  const [editProduct, setEditProduct] = useState(null);
   const [newName, setNewName] = useState('');
   const [newPrice, setNewPrice] = useState('');
 
@@ -23,28 +24,59 @@ function SalesAndBilling() {
     }
   };
 
-  const addToCart = (product) => {
-    setCart([...cart, product]);
-    setTotal(total + product.price);
+  const addToCart = async (product) => {
+    // Check if the product has stock available
+    if (product.stock > 0) {
+      setCart([...cart, product]);
+      setTotal(total + product.price);
+
+      // Update the stock in the database
+      const updatedStock = product.stock - 1;
+      const { error } = await supabase
+        .from('products')
+        .update({ stock: updatedStock })
+        .eq('id', product.id);
+
+      if (error) {
+        console.error('Error updating stock:', error);
+      } else {
+        fetchProducts(); // Refresh the product list to reflect stock changes
+      }
+    } else {
+      alert('Product is out of stock!');
+    }
   };
 
-  const removeFromCart = (index, product) => {
+  const removeFromCart = async (index, product) => {
     const newCart = [...cart];
-    newCart.splice(index, 1); // Remove the item from the cart
+    newCart.splice(index, 1);
     setCart(newCart);
-    setTotal(total - product.price); // Subtract the product price from the total
+    setTotal(total - product.price);
+
+    // Restore the stock in the database after removing from cart
+    const restoredStock = product.stock + 1;
+    const { error } = await supabase
+      .from('products')
+      .update({ stock: restoredStock })
+      .eq('id', product.id);
+
+    if (error) {
+      console.error('Error restoring stock:', error);
+    } else {
+      fetchProducts(); // Refresh product list to reflect stock changes
+    }
   };
 
   const handleCheckout = async () => {
-    cart.forEach(async (item) => {
-      const { error } = await supabase.from('sales').insert([
-        { product_id: item.id, quantity: 1, total_price: item.price },
-      ]);
+    for (const item of cart) {
+      const { error } = await supabase
+        .from('sales')
+        .insert([{ product_id: item.id, quantity: 1, total_price: item.price }]);
 
       if (error) {
         console.error(error);
       }
-    });
+    }
 
     alert(`Total Amount: ₹${total}`);
     setCart([]);
@@ -66,20 +98,19 @@ function SalesAndBilling() {
     if (error) {
       console.error(error);
     } else {
-      fetchProducts(); // Refresh the product list after updating
-      setEditProduct(null); // Close the edit form after updating
+      fetchProducts();
+      setEditProduct(null);
     }
   };
 
-  // Function to remove product from Supabase database
   const handleRemoveProductFromDB = async (productId) => {
     const { error } = await supabase.from('products').delete().eq('id', productId);
-    
+
     if (error) {
       console.error('Error removing product from database:', error);
     } else {
-      fetchProducts(); // Refresh the product list after deletion
-      setEditProduct(null); // Close the edit form if the product was being edited
+      fetchProducts();
+      setEditProduct(null);
     }
   };
 
@@ -87,19 +118,24 @@ function SalesAndBilling() {
     <div className="sales-container">
       <h2>Sales and Billing</h2>
 
+      {lowStockWarning && <div className="low-stock-warning">{lowStockWarning}</div>}
+
       <div className="products-list">
         {products.map((product) => (
-          <div key={product.id} className="product">
+          <div key={product.id} className={`product ${product.stock < 10 ? 'low-stock' : ''}`}>
             <h4>{product.name}</h4>
             <p>Price: ₹{product.price}</p>
-            <button onClick={() => addToCart(product)}>Add to Cart</button>
+            <p>Category: {product.category}</p>
+            <p>Stock: {product.stock}</p>
+            <button onClick={() => addToCart(product)} disabled={product.stock === 0}>
+              {product.stock === 0 ? 'Out of Stock' : 'Add to Cart'}
+            </button>
             <button onClick={() => handleEditClick(product)}>Edit</button>
-            <button onClick={() => handleRemoveProductFromDB(product.id)}>Delete</button> {/* Button to remove product from DB */}
+            <button onClick={() => handleRemoveProductFromDB(product.id)}>Delete</button>
           </div>
         ))}
       </div>
 
-      {/* Edit Form */}
       {editProduct && (
         <div className="edit-form">
           <h3>Edit Product</h3>
@@ -115,9 +151,7 @@ function SalesAndBilling() {
             onChange={(e) => setNewPrice(e.target.value)}
             placeholder="Product Price"
           />
-          <button onClick={() => handleUpdateProduct(editProduct.id)}>
-            Update Product
-          </button>
+          <button onClick={() => handleUpdateProduct(editProduct.id)}>Update Product</button>
           <button onClick={() => setEditProduct(null)}>Cancel</button>
         </div>
       )}
@@ -128,12 +162,16 @@ function SalesAndBilling() {
           {cart.map((product, index) => (
             <li key={index}>
               {product.name} - ₹{product.price}
-              <button className="remove-btn" onClick={() => removeFromCart(index, product)}>Remove</button>
+              <button className="remove-btn" onClick={() => removeFromCart(index, product)}>
+                Remove
+              </button>
             </li>
           ))}
         </ul>
         <h4>Total: ₹{total}</h4>
-        <button onClick={handleCheckout}>Checkout</button>
+        <button onClick={handleCheckout} disabled={cart.length === 0}>
+          Checkout
+        </button>
       </div>
     </div>
   );
